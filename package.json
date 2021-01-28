@@ -1,0 +1,12 @@
+{
+  "name": "estoque",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private":"true",
+  "workspaces":[
+    "server/**",
+    "web/**",
+    "pc/**"
+  ]
+}

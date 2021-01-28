@@ -10,15 +10,15 @@ export const GlobalStyle = createGlobalStyle`
    
     @font-face {
         font-family: Ubuntu300 ;
-        src: url( './src/assets/fonts/Ubuntu-Regular.ttf' );
+        src: url( './assets/fonts/Ubuntu-Regular.ttf' );
         font-family: Ubuntu700 ;
-        src: url( './src/assets/fonts/Ubuntu-Bold.ttf' );
+        src: url( './assets/fonts/Ubuntu-Bold.ttf' );
       }
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Ubuntu300
+    font-family: <Ubuntu300>;
   }
   body {
     font-family: Arial, Helvetica, sans-serif;

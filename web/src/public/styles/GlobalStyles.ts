@@ -7,18 +7,12 @@ export const GlobalStyle = createGlobalStyle`
      --grey:#5a5c69 ;
      --sucess:#27ae60;
    }
-   
-    @font-face {
-        font-family: Ubuntu300 ;
-        src: url( './assets/fonts/Ubuntu-Regular.ttf' );
-        font-family: Ubuntu700 ;
-        src: url( './assets/fonts/Ubuntu-Bold.ttf' );
-      }
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: <Ubuntu300>;
+    font-family: 'Roboto', sans-serif;
+    font-weight:300;
   }
   body {
     font-family: Arial, Helvetica, sans-serif;

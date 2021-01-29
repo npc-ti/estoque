@@ -20,6 +20,14 @@ export const Container = styled.ul`
         font-weight: 800;
         font-size: .75rem;
         color:rgb(143, 158, 229);
+        @media(max-width: 700px){
+            display:none;
+        }
+    }
+
+    @media(max-width:700px) {
+        width:4rem;
+        
     }
 `
 
@@ -70,12 +78,20 @@ export const SideBarBrandIcon = styled.div`
     width:2rem;
     height:2rem;
     transform: rotate(-15deg);
+    @media(max-width: 700px) {
+            margin: unset;
+            width: 100% !important;
+            height: 2rem;
+        }
 `
 
 export const SideBarBrandText = styled.div`
     display:inline;
     margin-left: 1rem;
     margin-right: 1rem;
+    @media(max-width: 700px) {
+        display:none;
+    }
 `
 
 export const SideBarLink = styled.li`
@@ -93,11 +109,19 @@ export const SideBarLink = styled.li`
         font-size: 1rem;
         display: inline;
         transition: .3s ease;
+        @media(max-width: 700px) {
+            display:none;
+        }
     }
     svg {
         margin-right:.5rem;
         color:#7e98e7;
-        transition: .3s ease
+        transition: .3s ease;
+        @media(max-width: 700px) {
+            margin: unset;
+            width: 100% !important;
+            height: 2rem;
+        }
     }
     .on,.on > svg {
         color:#fff!important;

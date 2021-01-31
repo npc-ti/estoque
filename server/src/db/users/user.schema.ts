@@ -1,6 +1,6 @@
 
 import { Schema, Types } from 'mongoose';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export const userShema = new Schema({
     firstName: {
@@ -9,9 +9,9 @@ export const userShema = new Schema({
     lastName: {
         type: String,
     },
-    id: {
+    _id: {
         type:String,
-        default: () => uuid.v4(),
+        default: () => uuidv4(),
     },
     email: {
         type: String,

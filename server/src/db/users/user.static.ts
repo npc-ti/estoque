@@ -1,6 +1,7 @@
 import userModel from './user.model'
 import { user, userLogin, userReponse, userRepsonseToClient } from "./user.types";
 import bcrypt from 'bcryptjs';
+import jsonWebToken from '../../logic/jwt'
 
 class UserStatic {
     private salt: string;
@@ -28,7 +29,7 @@ class UserStatic {
                 email: userCreate.email,
                 firstName: userCreate.firstName,
                 lastName: userCreate.lastName,
-                jwt: 'null',
+                jwt: jsonWebToken.genarator(userCreate._id),
             }
             return { user: userResponse};
 
@@ -54,7 +55,7 @@ class UserStatic {
                     email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    jwt: 'null',
+                    jwt: jsonWebToken.genarator(user._id),
                 }
                 return {user:userResponse};
             }

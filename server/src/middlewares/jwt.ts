@@ -1,29 +1,15 @@
 import  { config } from 'dotenv';
 import { NextFunction, Response, Request } from 'express';
-import { sign, verify } from 'jsonwebtoken';
+import { decode } from 'jsonwebtoken';
+import json from '../logic/jwt';
 
 config();
 
-class jsonWebToken {
-    private mysecret
-    constructor(){
-        this.mysecret = process.env.SECRET;
-    }
-
-    public genarator(id: string, remember?: boolean): string {
-        const jwt = sign(id,`${this.mysecret}`,{
-            expiresIn:remember ? 31540000 : 86400
-        });
-        return jwt
-    }
-
-    public verfyToken (token: string) {
-        const id = verify(token, `${this.mysecret}`);
-        return id;
-    }
+interface RequestJwt extends Request {
+    userId: string;
 }
 
-function middleware (req: Request, res: Response, next: NextFunction) {
+function middleware (req: RequestJwt, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;
 
         if(!authHeader)
@@ -33,9 +19,20 @@ function middleware (req: Request, res: Response, next: NextFunction) {
 
         if(parts.length != 2)
             return res.status(401).send({err:"Token mal formado arruma sa merda direito pedro"});
-        
-        
-    
-    next();
 
+        const [schema, token] = parts;
+
+        if(!/^Bearer$/i.test(schema))
+            return res.status(401).send({err:"Acho que o token esta mal formado"});
+        
+        const verifyToken = json.verfyToken(token);
+
+        if(verifyToken.err)
+            return res.status(401).send({err:"Token invalido"});
+        
+        req.userId = verifyToken.decode.id;
+
+        return next();
 }
+
+export default middleware

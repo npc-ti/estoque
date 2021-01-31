@@ -1,7 +1,7 @@
 import userSchema from './user.schema';
 import { userDocument } from "./user.types";
-import db from '../'
+import { model } from 'mongoose'
 
-const userModel = db.dataBase().model <userDocument> ('user', userSchema);
+const userModel = model <userDocument> ('user', userSchema,'users');
 
 export default userModel;

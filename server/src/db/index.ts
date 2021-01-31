@@ -1,43 +1,40 @@
-import { Mongoose, connect, disconnect } from 'mongoose';
+import mongoose,{ Mongoose, connect, disconnect } from 'mongoose';
+
+let db: typeof mongoose;
 
 class mongoDb {
     uri: string;
-    db: Mongoose | undefined;
 
     constructor() {
         const { dbPass, dbName, dbUser } =  process.env;
-        this.uri = `mongodb+srv://${ dbUser }:${ dbPass }@cluster0.5ntvk.mongodb.net/${ dbName }/?retryWrites=true`;
-        this.db = undefined;
+        this.uri = `mongodb+srv://${ dbUser }:${ dbPass }@cluster0.5ntvk.mongodb.net/${ dbName }/?Writes=true&w=majority`;
+        this.connection()
     }
 
-    public async connection () {
+    public async connection (){
         try{
-            if(this.db)
-                return;
+            if(db)
+                return db;
         
         const connection = await connect(this.uri,{
-            useNewUrlParser: true,
-            useFindAndModify: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
+            useNewUrlParser:true,
+            useUnifiedTopology:true
           });
-        
-          this.db = connection;
+          db = connection;
+          mongoose.Promise = global.Promise
+
         }
         catch(err){
             throw err;
         }
     }
     public async disconnect () {
-        if(!this.db)
+        if(!db)
             return;
             await disconnect();
     }
     public dataBase () {
-        if(this.db)
-            return this.db;
-
-        throw "Database not created";
+            return db;
     }
 }
 

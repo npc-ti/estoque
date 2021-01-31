@@ -10,14 +10,14 @@ class UserStatic {
 
     public async createNewUser(user: user):Promise<userReponse> {
         try {
-
-            if(userModel.find({email:user.email}))
-                return {};
+            const { email } = user
+            console.log(email)
+            if(await userModel.findOne({email}))
+                return {err:'O email já esta cadastrado'};
 
             user.password = bcrypt.hashSync(user.password, this.salt);
             const userCreate = await userModel.create(user);
-            const userAfterSaved = await userCreate.save();
-            return { user: userAfterSaved};
+            return { user: userCreate};
 
         } catch (err) {
             throw err;
@@ -26,13 +26,14 @@ class UserStatic {
 
     public async loginUser (credentials:  userLogin): Promise<userReponse>{
         try{
-            const [user] = await userModel.find({email:credentials.email});
+            const user = await userModel.findOne({email:credentials.email});
 
             if(!user)
-                return {};
+            return {err:'O email não existe'};
+
 
             if(!bcrypt.compareSync(credentials.password, user.password))
-                return {};
+                return {err:'Senha incorreta'};
 
             return {user};
         }

@@ -26,7 +26,8 @@ export interface userLogin {
 }
 
 export interface userReponse {
-    user?:user
+    user?:user,
+    err?:string
 }
 
 export interface userDocument extends Document, user {}

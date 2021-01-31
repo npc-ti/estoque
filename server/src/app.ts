@@ -7,10 +7,14 @@ config();
 const app: Application = express();
 const Port = process.env.PORT || 3000 ;
 
-app.use(express.json());
-app.use('/auth',authRouters);
-Database.connection();
+async function application() {
+    await Database.connection();
+    app.use(express.json());
+    app.use('/auth',authRouters);
+    
+    app.listen(Port, async () => {
+        console.log(`O servidor esta rodando na porta ${Port}`);
+    });
+} 
 
-app.listen(Port, async () => {
-    console.log(`O servidor esta rodando na porta ${Port}`);
-});
+application()

@@ -1,5 +1,5 @@
 import userModel from './user.model'
-import { user, userLogin, userReponse } from "./user.types";
+import { user, userLogin, userReponse, userRepsonseToClient } from "./user.types";
 import bcrypt from 'bcryptjs';
 
 class UserStatic {
@@ -10,14 +10,27 @@ class UserStatic {
 
     public async createNewUser(user: user):Promise<userReponse> {
         try {
-            const { email } = user
+            const { email,docNumber } = user
             console.log(email)
+
             if(await userModel.findOne({email}))
                 return {err:'O email já esta cadastrado'};
 
+            if(await userModel.findOne({docNumber}))
+                return {err:'O documento já está cadastrado'};
+
             user.password = bcrypt.hashSync(user.password, this.salt);
+
             const userCreate = await userModel.create(user);
-            return { user: userCreate};
+            const userResponse: userRepsonseToClient = {
+                _id: userCreate._id,
+                docNumber: userCreate.docNumber,
+                email: userCreate.email,
+                firstName: userCreate.firstName,
+                lastName: userCreate.lastName,
+                jwt: 'null',
+            }
+            return { user: userResponse};
 
         } catch (err) {
             throw err;
@@ -29,17 +42,26 @@ class UserStatic {
             const user = await userModel.findOne({email:credentials.email});
 
             if(!user)
-            return {err:'O email não existe'};
+                return {err:'O email não existe'};
 
 
             if(!bcrypt.compareSync(credentials.password, user.password))
                 return {err:'Senha incorreta'};
-
-            return {user};
+            
+                const userResponse: userRepsonseToClient = {
+                    _id: user._id,
+                    docNumber: user.docNumber,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    jwt: 'null',
+                }
+                return {user:userResponse};
+            }
+            catch(err) {
+            throw err;
         }
-        catch(err) {
-            throw err
-        }
+        
     }
 }
 

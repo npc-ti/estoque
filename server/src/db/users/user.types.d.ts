@@ -1,10 +1,9 @@
 import { Document, Model } from "mongoose";
 
-
 export interface user {
     firstName: string,
     lastName: string,
-    id?: string,
+    _id?: string,
     email: string,
     docNumber:string,
     password: string,
@@ -14,7 +13,7 @@ export interface user {
 export interface userRegister {
     firstName: string,
     lastName: string,
-    id: string,
+    _id: string,
     email: string,
     docNumber:string,
     password: string,
@@ -25,8 +24,17 @@ export interface userLogin {
     password: string,
 }
 
+export interface userRepsonseToClient{
+    firstName: string,
+    lastName: string,
+    _id: string,
+    email: string,
+    docNumber:string,
+    jwt: stirng
+}
+
 export interface userReponse {
-    user?:user,
+    user?:userRepsonseToClient,
     err?:string
 }
 

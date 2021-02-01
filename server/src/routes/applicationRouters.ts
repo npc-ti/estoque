@@ -8,7 +8,7 @@ projectRouter.use(middleware.auth);
 
 projectRouter.get('/',(req: Request, res: Response) =>res.send({logged:true}));
 projectRouter.get('/listAllCompanys',(req: Request, res: Response) => Company(req,res).getCompany());
-projectRouter.get('/addCompany',(req: Request, res: Response) => null);
+projectRouter.get('/registerCompany',(req: Request, res: Response) => Company(req,res).registerCompany());
 projectRouter.get('/listAllCompanys',(req: Request, res: Response) => null);
 projectRouter.get('/listAllCompanys',(req: Request, res: Response) => null);
 

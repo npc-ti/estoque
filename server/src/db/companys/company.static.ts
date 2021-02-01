@@ -1,5 +1,5 @@
 import companyModel from './company.model';
-import { companyDocument } from './company.types';
+import { company, companyDocument } from './company.types';
 
 class Company {
 
@@ -15,6 +15,16 @@ class Company {
         catch(err){
             throw err;
         }
+    }
+
+    public async registerCompany (company: company) {
+        if(await companyModel.findOne({cpnj: company.cpnj}))
+
+            throw {err: 'O cpnj já esta cadastrado'};
+
+        const response = await companyModel.create(company);
+
+        return {company: response}
     }
 }
 

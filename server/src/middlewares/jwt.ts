@@ -2,6 +2,7 @@ import  { config } from 'dotenv';
 import { NextFunction, Response, Request } from 'express';
 import { decode } from 'jsonwebtoken';
 import { convertTypeAcquisitionFromJson } from 'typescript';
+import userStatic from '../db/users/user.static';
 import json from '../logic/jwt';
 
 config();
@@ -9,12 +10,14 @@ config();
 class middleware {
 
     userId: string;
+    companysId: string[];
 
     constructor() {
         this.userId = '';
+        this.companysId = []
     }
 
-    public auth (req: Request, res: Response, next: NextFunction) {
+    public async auth (req: Request, res: Response, next: NextFunction) {
         const authHeader = req.headers.authorization;
 
         if(!authHeader)
@@ -36,6 +39,7 @@ class middleware {
             return res.status(401).send({err:"Token invalido"});
         
         this.userId = verifyToken.decode.id;
+        this.companysId = (await userStatic.getUser(this.userId)).companysIds;
 
         return next();
     }

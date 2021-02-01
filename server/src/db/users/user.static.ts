@@ -1,5 +1,5 @@
 import userModel from './user.model'
-import { user, userLogin, userReponse, userRepsonseToClient } from "./user.types";
+import { user, userDocument, userLogin, userReponse, userRepsonseToClient } from "./user.types";
 import bcrypt from 'bcryptjs';
 import jsonWebToken from '../../logic/jwt'
 
@@ -34,7 +34,7 @@ class UserStatic {
             return { user: userResponse};
 
         } catch (err) {
-            throw err;
+            throw {err};
         }
     }
 
@@ -60,10 +60,37 @@ class UserStatic {
                 return {user:userResponse};
             }
             catch(err) {
-            throw err;
+            throw {err};
         }
         
     }
-}
 
+    public async getUser (userId: string): Promise<userDocument>{
+        try{
+            const user = await userModel.findOne({_id: userId});
+            if(!user) 
+                throw {err: 'Usuario não encontrado'};
+            
+            return user;
+
+        }catch(err){
+            throw {err};
+        }
+    }
+    public async addCompanyInUser(companyId: string, userId: string): Promise<void>{
+        try {
+            const user = await userModel.findOne({_id: userId});
+            
+            if(!user) 
+                throw {err: 'Usuario não encontrado'};
+            
+            await user.update({companysIds: [...user.companysIds, companyId]});
+            return
+
+        }
+        catch(err) {
+            throw {err};
+        }
+    }
+}
 export default new UserStatic

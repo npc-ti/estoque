@@ -1,16 +1,21 @@
 import  { config } from 'dotenv';
 import { NextFunction, Response, Request } from 'express';
 import { decode } from 'jsonwebtoken';
+import { convertTypeAcquisitionFromJson } from 'typescript';
 import json from '../logic/jwt';
 
 config();
 
-interface RequestJwt extends Request {
-    userId: string;
-}
+class middleware {
 
-function middleware (req: RequestJwt, res: Response, next: NextFunction) {
-    const authHeader = req.headers.authorization;
+    userId: string;
+
+    constructor() {
+        this.userId = '';
+    }
+
+    public auth (req: Request, res: Response, next: NextFunction) {
+        const authHeader = req.headers.authorization;
 
         if(!authHeader)
             return res.status(401).send({err:"not token provide"});
@@ -30,9 +35,10 @@ function middleware (req: RequestJwt, res: Response, next: NextFunction) {
         if(verifyToken.err)
             return res.status(401).send({err:"Token invalido"});
         
-        req.userId = verifyToken.decode.id;
+        this.userId = verifyToken.decode.id;
 
         return next();
+    }
 }
 
-export default middleware
+export default new middleware

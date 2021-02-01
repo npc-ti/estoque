@@ -3,8 +3,8 @@ import { user, userLogin, userDocument, userRegister } from '../../db/users/user
 import userStatic from '../../db/users/user.static';
 
 class authController {
-    req: Request;
-    res: Response;
+    private req: Request;
+    private res: Response;
     constructor(req: Request, res: Response) {
         this.req = req;
         this.res = res;

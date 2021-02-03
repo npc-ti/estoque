@@ -90,4 +90,15 @@ button.btn{
       font-size:3rem;
       margin-bottom: 1rem;
     }
+    
+    input {
+      border:none;
+      outline:none;
+    }
+
+    a{
+      text-decoration:none;
+      color:#000;
+      font-weight: 300;
+    }
 `

@@ -16,8 +16,8 @@ export const Main = styled.main`
     img{ 
         width:100%;
         height:100%;
-        max-width: 40rem;
-        max-height: 40rem;
+        max-width: 35rem;
+        max-height: 35rem;
     }
     
     h1{

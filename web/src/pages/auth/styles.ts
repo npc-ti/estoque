@@ -46,6 +46,8 @@ export const ImageContainer = styled.div`
     }
 `
 
+
+
 export const UserForm = styled.form`
     width: 290px;
     height:auto;
@@ -53,7 +55,6 @@ export const UserForm = styled.form`
     align-items: center;
     justify-content: center;
     flex-direction:column;
-
     .inputGroup {
     display: flex;
     align-items: center;
@@ -87,6 +88,13 @@ export const UserForm = styled.form`
     .checkBoxGroup{
         color:#000;
     }
+
+    p.Error{
+        margin-top:.5rem;
+        color: red;
+        text-align: center;
+    }
+
     @media (max-width: 992px){
         width:50%;
     }

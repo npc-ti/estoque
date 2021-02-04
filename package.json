@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "private":"true",
+  "scripts": {
+    "start":"cd server && tsc && node dist/app.js"
+  },
   "workspaces":[
     "server/**",
     "web/**",

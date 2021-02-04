@@ -78,7 +78,9 @@ const RegisterPage: React.FC = () => {
         <Helmet>
             <title>Cadastro</title>
         </Helmet>
-            <UserForm>
+            <UserForm
+            onSubmit={handleSubmit}
+            >
             <span className="title">Cadastro</span>
             <div className="inputGroup">
 
@@ -153,11 +155,13 @@ const RegisterPage: React.FC = () => {
                 label="Lemre-se de mim"
                 />
             </div>
-            <Button 
+            <Button
+                type="submit"
                 onClick={handleSubmit}
                 id="login" 
                 className="btn"
                 >Cadastro</Button>
+                
             <Link to="/login">
             <Button id="register" className="btn">Já tenho conta</Button>
             </Link>

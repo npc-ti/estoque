@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import authRouters from './routes/authRouters';
 import Database from './db';
 import projectRouter from './routes/applicationRouters';
+import cors from 'cors';
 
 config();
 const app: Application = express();
@@ -13,6 +14,7 @@ async function application() {
     await Database.connection();
 
     app.use(express.json());
+    app.use(cors());
     app.use('/auth',authRouters);
     app.use('/project',projectRouter);
     
